@@ -1,7 +1,7 @@
 """
 Assignment 6 Part 1: Student Performance Prediction
-Name: _______________
-Date: _______________
+Name: Frank McCrudden
+Date: 11/21/2025
 
 This assignment predicts student test scores based on hours studied.
 Complete all the functions below following the in-class ice cream example.
@@ -16,63 +16,42 @@ import numpy as np
 
 
 def load_and_explore_data(filename):
-    """
-    Load the student scores data and explore it
-    
-    Args:
-        filename: name of the CSV file to load
-    
-    Returns:
-        pandas DataFrame containing the data
-    """
     # TODO: Load the CSV file using pandas
-    
+    data = pd.read_csv(filename)
     # TODO: Print the first 5 rows
-    
+    print("=== Student Scores Data ===")
+    print(f"\nFirst 5 rows:")
+    print(data.head())
     # TODO: Print the shape of the dataset (number of rows and columns)
-    
+    print(f"\nDataset shape: {data.shape[0]} rows, {data.shape[1]} columns")
     # TODO: Print basic statistics (mean, min, max, etc.)
-    
+    print(f"\nBasic statistics:")
+    print(data.describe())
     # TODO: Return the dataframe
-    pass
+    return data
 
 
 def create_scatter_plot(data):
-    """
-    Create a scatter plot to visualize the relationship between hours studied and scores
-    
-    Args:
-        data: pandas DataFrame with Hours and Scores columns
-    """
     # TODO: Create a figure with size (10, 6)
-    
+    plt.figure(figsize=(10, 6))
     # TODO: Create a scatter plot with Hours on x-axis and Scores on y-axis
     #       Use color='purple' and alpha=0.6
-    
+    plt.scatter(data['Hours'], data['Scores'], color='purple', alpha=0.6)
     # TODO: Add x-axis label: 'Hours Studied'
-    
+    plt.xlabel('Hours Studied', fontsize=12)
     # TODO: Add y-axis label: 'Test Score'
-    
+    plt.ylabel('Test Scores', fontsize=12)
     # TODO: Add title: 'Student Test Scores vs Hours Studied'
-    
+    plt.title('Student Test Scores vs Hours Studied', fontsize=14, fontweight='bold')
     # TODO: Add a grid with alpha=0.3
-    
+    plt.grid(True, alpha=0.3)
     # TODO: Save the figure as 'scatter_plot.png' with dpi=300
-    
+    plt.savefig('scatter_plot.png', dpi=300, bbox_inches='tight')
     # TODO: Show the plot
-    pass
+    plt.show()
 
 
 def split_data(data):
-    """
-    Split data into features (X) and target (y), then into training and testing sets
-    
-    Args:
-        data: pandas DataFrame with Hours and Scores columns
-    
-    Returns:
-        X_train, X_test, y_train, y_test
-    """
     # TODO: Create X with the 'Hours' column (use double brackets to keep as DataFrame)
     
     # TODO: Create y with the 'Scores' column
@@ -86,16 +65,6 @@ def split_data(data):
 
 
 def train_model(X_train, y_train):
-    """
-    Create and train a linear regression model
-    
-    Args:
-        X_train: training features
-        y_train: training target values
-    
-    Returns:
-        trained LinearRegression model
-    """
     # TODO: Create a LinearRegression model
     
     # TODO: Train the model using .fit()
@@ -107,17 +76,6 @@ def train_model(X_train, y_train):
 
 
 def evaluate_model(model, X_test, y_test):
-    """
-    Evaluate the model's performance on test data
-    
-    Args:
-        model: trained LinearRegression model
-        X_test: testing features
-        y_test: testing target values
-    
-    Returns:
-        predictions array
-    """
     # TODO: Make predictions using the model
     
     # TODO: Calculate R² score using r2_score()
@@ -133,17 +91,6 @@ def evaluate_model(model, X_test, y_test):
 
 
 def visualize_results(X_train, y_train, X_test, y_test, predictions, model):
-    """
-    Visualize the model's predictions against actual values
-    
-    Args:
-        X_train: training features
-        y_train: training target values
-        X_test: testing features
-        y_test: testing target values
-        predictions: model predictions on test set
-        model: trained model (to plot line of best fit)
-    """
     # TODO: Create a figure with size (12, 6)
     
     # TODO: Plot training data as blue scatter points with label 'Training Data'
@@ -168,16 +115,6 @@ def visualize_results(X_train, y_train, X_test, y_test, predictions, model):
 
 
 def make_prediction(model, hours):
-    """
-    Make a prediction for a specific number of hours studied
-    
-    Args:
-        model: trained LinearRegression model
-        hours: number of hours to predict score for
-    
-    Returns:
-        predicted test score
-    """
     # TODO: Reshape hours into the format the model expects: np.array([[hours]])
     
     # TODO: Make a prediction
@@ -195,10 +132,11 @@ if __name__ == "__main__":
     
     # Step 1: Load and explore the data
     # TODO: Call load_and_explore_data() with 'student_scores.csv'
-    
+    data = load_and_explore_data('student_scores.csv')
+
     # Step 2: Visualize the relationship
     # TODO: Call create_scatter_plot() with the data
-    
+    create_scatter_plot(data)
     # Step 3: Split the data
     # TODO: Call split_data() and store the returned values
     
